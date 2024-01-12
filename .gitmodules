@@ -1,0 +1,9 @@
+[submodule "chess_llm_interpretability"]
+	path = chess_llm_interpretability
+	url = git@github.com:ezhang7423/chess_llm_interpretability.git
+[submodule "chess_gpt_eval"]
+	path = chess_gpt_eval
+	url = git@github.com:ezhang7423/chess_gpt_eval.git
+[submodule "chess-nanoGPT"]
+	path = chess-nanoGPT
+	url = git@github.com:teamcore-harvard/chess-nanoGPT.git
