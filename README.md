@@ -3,7 +3,15 @@
 This holds all the forks of all code here:
 https://adamkarvonen.github.io/machine_learning/2024/01/03/chess-world-models.html
 
-[./chess_gpt_eval](./chess_gpt_eval/)
+`./chess_gpt_eval` holds evaluation scripts for playing gpt3.5-turbo-instruct against stockfish and gpt-4. 
+`./chess_llm_interpretability` trains and runs linear probes to predict the board and pieces on it from hidden activations within the transformer.
+`./chess-nanoGPT` contains code for training a chess nanoGPT from scratch (25M or 50M params).
+
+dataset: https://huggingface.co/datasets/adamkarvonen/chess_games/tree/main
+
+models: https://huggingface.co/adamkarvonen/chess_llms/tree/main
+
+training logs: https://wandb.ai/adam-karvonen/chess-gpt-batch/reports/Chess-world-models-wandb-runs--Vmlldzo2NDIxNzk4?accessToken=0hp0mi9iruo0328wqwl2dycvegt0rw3jkkyw4aqz56yvaiibaetuxvodb9a22ozp
 
 summary:
 
