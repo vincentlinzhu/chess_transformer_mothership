@@ -7,6 +7,3 @@
 [submodule "chess-nanoGPT"]
 	path = chess-nanoGPT
 	url = git@github.com:teamcore-harvard/chess-nanoGPT.git
-[submodule "chess_temperature_experiments"]
-	path = chess_temperature_experiments
-	url = ./chess_temperature_experiments
