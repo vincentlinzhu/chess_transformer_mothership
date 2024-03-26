@@ -7,3 +7,6 @@
 [submodule "chess-nanoGPT"]
 	path = chess-nanoGPT
 	url = git@github.com:teamcore-harvard/chess-nanoGPT.git
+[submodule "lichess-bot"]
+	path = lichess-bot
+	url = git@github.com:ezhang7423/lichess-bot.git
