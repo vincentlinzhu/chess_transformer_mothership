@@ -1,5 +1,12 @@
 # chess_transformer_mothership
 
+To get datasets:
+
+```
+git lfs clone https://huggingface.co/datasets/ezipe/adam-chess-data
+git lfs clone https://huggingface.co/datasets/ezipe/lichess_2023_janoct_shards/
+```
+
 This holds all the forks of all code here:
 https://adamkarvonen.github.io/machine_learning/2024/01/03/chess-world-models.html
 
