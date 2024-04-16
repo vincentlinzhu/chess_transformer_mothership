@@ -66,6 +66,7 @@ jobs:
         with:
           ssh-key: ${{secrets.SSH_PRIVATE_KEY}}
           submodules: true
+          path: ./code
       
       - name: Run code
         run: |
