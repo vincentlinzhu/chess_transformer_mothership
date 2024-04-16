@@ -71,7 +71,7 @@ jobs:
       
       - name: Run code
         run: |
-          cd ./lichess-bot
+          cd ./code/lichess-bot
           cp config.yml.default config.yml
           cd ../chess-nanoGPT
           ln -s /dataset/train.bin ./data/lichess_hf_dataset/train.bin
