@@ -20,6 +20,12 @@ models: https://huggingface.co/adamkarvonen/chess_llms/tree/main
 
 training logs: https://wandb.ai/adam-karvonen/chess-gpt-batch/reports/Chess-world-models-wandb-runs--Vmlldzo2NDIxNzk4?accessToken=0hp0mi9iruo0328wqwl2dycvegt0rw3jkkyw4aqz56yvaiibaetuxvodb9a22ozp
 
+All SECRETS needed to run github actions workflow:
+- ${{ secrets.DOCKER_HUB_PASSWORD }} : This is the password to your dockerhub where you want to store yourdocker images.
+- ${{ secrets.LICHESS_BOT_TOKEN }}: Once you make a lichess bot account and obtain a the API key (see README.md in /lichess-bot), store it as a secret.
+- ${{ secrets.WANDB_AUTH_API_KEY }}: Go to https://wandb.ai/authorize while logged into your WANDB account and copy the key down as a secret.
+- ${{ secrets.SSH_PRIVATE_KEY }}: You need to have an ssh key associated with your github account. NOTE: This does not go under the repository's secrets.
+
 summary:
 
 - Adam Karvonen studied the application of language models to playing chess, building on previous ML research, including gpt-3.5-turbo-instruct's ability to play chess at an 1800 Elo level, and Kenneth Li's work on Emergent World Representations.
