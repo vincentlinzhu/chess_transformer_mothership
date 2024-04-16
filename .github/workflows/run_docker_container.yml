@@ -33,6 +33,8 @@ jobs:
 
       - name: Setup Git LFS
         run: |
+          pwd && ls -lR
+          sleep infinity
           cd chess-nanoGPT
           # if file does NOT exist, download:
           if [ -d "adam-chess-data" ]; then
