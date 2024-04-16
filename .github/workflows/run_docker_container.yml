@@ -33,6 +33,7 @@ jobs:
 
       - name: Setup Git LFS
         run: |
+          echo ${{ github.workspace }}
           pwd && ls -lR
           sleep infinity
           cd chess-nanoGPT
