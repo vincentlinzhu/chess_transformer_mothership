@@ -71,11 +71,8 @@ jobs:
         run: |
           cd ./lichess-bot
           cp config.yml.default config.yml
-          # rm lichess_16layers_ckpt_no_optimizer.pt
-          # wget https://huggingface.co/adamkarvonen/chess_llms/resolve/main/lichess_16layers_ckpt_no_optimizer.pt?download=true
-          # mv lichess_16layers_ckpt_no_optimizer.pt?download=true lichess_16layers_ckpt_no_optimizer.pt
-          # python lichess-bot.py --weight_file lichess_16layers_ckpt_no_optimizer.pt --temperature 0.01 --config_token ${{ secrets.LICHESS_BOT_TOKEN }}
           cd ../chess-nanoGPT
+          ln -s /dataset/train.bin ./data/lichess_hf_dataset/train.bin
+          ln -s /dataset/val.bin ./data/lichess_hf_dataset/val.bin
           wandb login ${{ secrets.WANDB_AUTH_API_KEY }}     
           python train.py config/train_original.py
-
