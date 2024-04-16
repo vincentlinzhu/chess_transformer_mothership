@@ -33,6 +33,7 @@ jobs:
 
       - name: Setup Git LFS
         run: |
+          rm -rf *
           echo gihub workspace: ${{ github.workspace }}
           pwd && ls -lR
           # if file does NOT exist, download:
