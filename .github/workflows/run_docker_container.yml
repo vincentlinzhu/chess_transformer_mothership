@@ -33,14 +33,12 @@ jobs:
 
       - name: Setup Git LFS
         run: |
-          sudo rm -rf *
           echo gihub workspace: ${{ github.workspace }}
           pwd && ls -lR
           # if file does NOT exist, download:
           if [ -d "adam-chess-data" ]; then
             echo "No need to clone"
           else
-            sleep infinity
             curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
             sudo apt-get install git-lfs
             sudo git lfs install
