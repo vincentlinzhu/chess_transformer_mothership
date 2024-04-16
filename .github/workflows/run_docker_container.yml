@@ -73,6 +73,7 @@ jobs:
           cd ./code/lichess-bot
           cp config.yml.default config.yml
           cd ../chess-nanoGPT
+          rm ./data/lichess_hf_dataset/*.bin
           ln -s /dataset/train.bin ./data/lichess_hf_dataset/train.bin
           ln -s /dataset/val.bin ./data/lichess_hf_dataset/val.bin
           wandb login ${{ secrets.WANDB_AUTH_API_KEY }}     
