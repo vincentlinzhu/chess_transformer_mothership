@@ -1,0 +1,80 @@
+name: Pull and Run Docker Container
+
+on:
+  workflow_dispatch:
+    inputs:
+      number-jobs:
+        description: "Number of concurrent jobs"
+        required: true
+        default: "1"
+  push:
+
+
+env:
+  number-jobs: 1
+  lichess_bot_token: ${{ secrets.LICHESS_BOT_TOKEN }}
+
+concurrency:
+  group: run
+  cancel-in-progress: true
+
+jobs:
+  prejob:
+    runs-on: self-hosted
+    outputs:
+      job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}          
+    steps:
+      - name: Use python3 to convert number-jobs to a list
+        id: set-matrix
+        run: |
+          # send telegram message that we are starting a job, send the json config
+          matrix_value=$(python3 -c "print(str(list(range(0, ${{ github.event.inputs.number-jobs || env.number-jobs }} ))).replace(' ', ''))")          
+          echo "job_matrix=$matrix_value" >> $GITHUB_OUTPUT
+
+      - name: Setup Git LFS
+        run: |
+          cd chess-nanoGPT
+          # if file does NOT exist, download:
+          if [ -d "adam-chess-data" ]; then
+            echo "No need to clone"
+          else
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+            sudo apt-get install git-lfs
+            sudo git lfs install
+            sudo git lfs clone https://huggingface.co/datasets/ezipe/adam-chess-data
+          fi  
+
+  run:
+    timeout-minutes: 1440 # 24 hours
+    runs-on: self-hosted
+    container:
+      image: vincentlinzhu11/chess_transformer_mothership:latest
+      volumes:
+        - ${{ github.workspace }}/adam-chess-data/original:/dataset
+    needs: prejob
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        job: ${{ fromJson(needs.prejob.outputs.job_matrix) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ssh-key: ${{secrets.SSH_PRIVATE_KEY}}
+          submodules: true
+      
+      - name: Run code
+        run: |
+          cd ./lichess-bot
+          cp config.yml.default config.yml
+          # rm lichess_16layers_ckpt_no_optimizer.pt
+          # wget https://huggingface.co/adamkarvonen/chess_llms/resolve/main/lichess_16layers_ckpt_no_optimizer.pt?download=true
+          # mv lichess_16layers_ckpt_no_optimizer.pt?download=true lichess_16layers_ckpt_no_optimizer.pt
+          # python lichess-bot.py --weight_file lichess_16layers_ckpt_no_optimizer.pt --temperature 0.01 --config_token ${{ secrets.LICHESS_BOT_TOKEN }}
+          cd ../chess-nanoGPT
+          wandb login ${{ secrets.WANDB_AUTH_API_KEY }}     
+          python train.py config/train_original.py
+

@@ -20,7 +20,7 @@ models: https://huggingface.co/adamkarvonen/chess_llms/tree/main
 
 training logs: https://wandb.ai/adam-karvonen/chess-gpt-batch/reports/Chess-world-models-wandb-runs--Vmlldzo2NDIxNzk4?accessToken=0hp0mi9iruo0328wqwl2dycvegt0rw3jkkyw4aqz56yvaiibaetuxvodb9a22ozp
 
-All SECRETS needed to run github actions workflow:
+All SECRETS needed for github actions workflow:
 - ${{ secrets.DOCKER_HUB_PASSWORD }} : This is the password to your dockerhub where you want to store yourdocker images.
 - ${{ secrets.LICHESS_BOT_TOKEN }}: Once you make a lichess bot account and obtain a the API key (see README.md in /lichess-bot), store it as a secret.
 - ${{ secrets.WANDB_AUTH_API_KEY }}: Go to https://wandb.ai/authorize while logged into your WANDB account and copy the key down as a secret.

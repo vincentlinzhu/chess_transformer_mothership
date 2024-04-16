@@ -1,0 +1,37 @@
+name: Build and Push Docker Container
+
+on:
+  push:
+    paths:
+      - ".devcontainer/Dockerfile"
+      - ".github/workflows/build_docker_container.yml"
+      - "requirements.txt"
+  workflow_dispatch:
+
+concurrency:
+  group: docker
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          submodules: true
+
+      - name: Get commit hash
+        run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u vincentlinzhu11 --password-stdin
+
+      - name: Build Docker image
+        run: | 
+          docker build -t vincentlinzhu11/chess_transformer_mothership:latest -t vincentlinzhu11/chess_transformer_mothership:${{ env.COMMIT_HASH }} -f ./.devcontainer/Dockerfile .
+
+      - name: Push Docker image
+        run: docker push --all-tags vincentlinzhu11/chess_transformer_mothership
